@@ -1,58 +1,40 @@
-<!DOCTYPE html>
-<html lang="id">
+<?php
+// add_penyakit.php
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Tambah Video - Admin SembodoSehat</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <style>
-        body {
-            background-color: #e8f5e9;
-        }
+// Aktifkan error reporting untuk debugging (hapus jika sudah stabil)
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-        .navbar-green {
-            background-color: #388e3c;
-        }
+$pageTitle = "Tambah Riwayat Penyakit";
 
-        .btn-green {
-            background-color: #2e7d32;
-            color: white;
-        }
+$message = '';
+// Contoh validasi dan proses POST sederhana
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $penyakit = trim($_POST['penyakit'] ?? '');
+    $deskripsi = trim($_POST['deskripsi'] ?? '');
 
-        .btn-green:hover {
-            background-color: #1b5e20;
-            color: white;
-        }
-    </style>
-</head>
+    if ($penyakit === '' || $deskripsi === '') {
+        $message = '<div class="alert alert-danger">Semua field wajib diisi!</div>';
+    } else {
+        // TODO: simpan data ke database di sini
+        $message = '<div class="alert alert-success">Data riwayat penyakit berhasil disimpan!</div>';
+    }
+}
 
-<body>
-
-    <nav class="navbar navbar-expand-lg navbar-green navbar-dark mb-4">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="dashboard.php">SembodoSehat Admin</a>
-        </div>
-    </nav>
-
-    <div class="container">
-        <h1 class="mb-4 text-success">Tambah Riwayat Penyakit</h1>
-
-        <?= $message ?>
-
-        <form method="POST" action="">
-            <div class="mb-3">
-                <label for="video_url" class="form-label fw-semibold">URL Video (YouTube)</label>
-                <input type="url" id="video_url" name="video_url" class="form-control"
-                    placeholder="Penyakit" required autofocus>
-                <div class="form-text">Masukkan Data Riwayat Penyakit</div>
-            </div>
-            <button type="submit" class="btn btn-green px-4 py-2">Simpan</button>
-            <a href="dashboard.php" class="btn btn-outline-success ms-3">Kembali</a>
-        </form>
+$content = <<<HTML
+$message
+<form method="POST" action="">
+    <div class="mb-3">
+        <label for="penyakit" class="form-label fw-semibold">Nama Penyakit</label>
+        <input type="text" id="penyakit" name="penyakit" class="form-control" placeholder="Masukkan nama penyakit" required autofocus>
     </div>
+    
+    <button type="submit" class="btn btn-green px-4 py-2">Simpan</button>
+    <a href="dashboard.php" class="btn btn-outline-success ms-3">Kembali</a>
+</form>
+HTML;
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>
+// Sertakan template utama
+include __DIR__ . '/../includes/app_admin.php';
+?>
