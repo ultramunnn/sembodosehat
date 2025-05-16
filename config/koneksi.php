@@ -3,7 +3,7 @@
 $host = 'localhost';
 $user = 'root';        // sesuaikan username DB kamu
 $password = 'root0506';        // sesuaikan password DB kamu
-$dbname = 'sembodosehat'; // nama database
+$dbname = 'sembodo_sehat'; // nama database
 
 // Buat koneksi
 $conn = new mysqli($host, $user, $password, $dbname);
