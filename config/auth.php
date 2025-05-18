@@ -15,7 +15,7 @@ function login($email, $password_plain)
 
     if ($result && $result->num_rows === 1) {
         $admin = $result->fetch_assoc();
-        var_dump($admin); // debug data admin
+
 
         // Verifikasi password hash
         if (password_verify($password_plain, $admin['password'])) {
