@@ -137,3 +137,7 @@ function logout()
     header("Location: /sembodosehat/login.php");
     exit();
 }
+
+
+// Kalau sampai sini, artinya ada error karena exit() sudah memaksa keluar.
+

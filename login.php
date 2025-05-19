@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
       if (login($email, $password)) {
         // Redirect berdasarkan role
         if ($_SESSION['user_role'] === 'admin') {
-          header("Location: $baseUrl/admin/dashboard.php");
+          header("Location: $baseUrl/admin/index.php");
           exit;
         } else {
           header("Location: $baseUrl/user/home.php");

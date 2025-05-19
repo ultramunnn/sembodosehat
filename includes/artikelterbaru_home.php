@@ -32,11 +32,24 @@ $articles = [
 ];
 ?>
 
-<h2 class="text-black text-4xl font-bold font-poppins mb-6 ml-6 mt-6">Artikel Terbaru</h2>
-<section class="w-full max-w-full mx-auto min-h-[700px] bg-transparent px-6 py-8">
+<style>
+    .hide-scrollbar {
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+    }
 
-    <div
-        class="flex gap-6 overflow-x-auto scrollbar-thin scrollbar-thumb-green-500 scrollbar-track-green-300 px-2 py-2">
+    .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+        /* Chrome, Safari and Opera */
+    }
+</style>
+
+<h2 class="text-black text-4xl font-bold font-poppins mb-6 ml-6 mt-6">Artikel Terbaru</h2>
+<section class="w-full max-w-full mx-auto min-h-[600px] bg-transparent px-6 py-8">
+
+    <div class="flex gap-6 overflow-x-auto hide-scrollbar px-2 py-2">
         <?php foreach ($articles as $article): ?>
             <article
                 class="min-w-[380px] rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 flex-shrink-0">
@@ -50,12 +63,12 @@ $articles = [
                         <?= htmlspecialchars($article['summary']) ?>
                     </p>
                     <div class="border border-white mb-4"></div>
-                    <div class="flex items-center gap-6">
+                    <div class="flex items-center gap-6 justify-between">
                         <span class="bg-green-500 rounded px-3 py-1 text-white text-sm font-light font-poppins">
                             <?= htmlspecialchars($article['category']) ?>
                         </span>
                         <a href="<?= htmlspecialchars($article['link']) ?>"
-                            class="text-white text-xl font-light font-poppins underline whitespace-nowrap">
+                            class="text-white text-xl font-light font-poppins underline whitespace-nowrap ">
                             [Baca Selengkapnya]
                         </a>
                     </div>
