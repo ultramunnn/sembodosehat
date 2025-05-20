@@ -22,7 +22,7 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item ">
-                    <a href="../includes/dashboard.php" class="nav-link ">
+                    <a href="../admin/index.php?page=dashboard" class="nav-link ">
                         <p>Dashboard </p>
                     </a>
                 </li>
@@ -36,14 +36,14 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="../includes/tambah_artikel.php" class="nav-link">
+                            <a href="../admin/index.php?page=tambah_artikel" class="nav-link">
                                 <i class="nav-icon fas fa-pencil-alt"></i>
                                 <p>Artikel</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="../includes/tambah_video.php" class="nav-link ">
+                            <a href="../admin/index.php?page=tambah_video" class="nav-link ">
                                 <i class="nav-icon fas fa-video"></i>
                                 <p>Video</p>
                             </a>
@@ -51,12 +51,12 @@
                     </ul>
 
                 <li class="nav-item ">
-                    <a href="../includes/tambah_penyakit.php" class="nav-link ">
+                    <a href="../admin/index.php?page=tambah_penyakit" class="nav-link ">
                         <p>Tambah Riwayat Penyakit</p>
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a href="./logout.php" class="nav-link ">
+                    <a href="../admin/index.php?page=logout" class="nav-link ">
                         <p>Logout</p>
                     </a>
                 </li>

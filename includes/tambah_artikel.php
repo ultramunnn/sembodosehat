@@ -1,6 +1,3 @@
-<?php include __DIR__ . '/app_admin.php'; ?>
-
-
 <div class="content-wrapper">
     <div class="card card-primary m-5">
         <div class="card-header">
@@ -23,7 +20,7 @@
                     <label for="gambar">Gambar</label>
                     <div class="input-group">
                         <div class="custom-file">
-                            <input type="gambar" class="custom-file-input" id="gambar">
+                            <input type="file" class="custom-file-input" id="gambar">
                             <label class="custom-file-label" for="gambar">Pilih gambar</label>
                         </div>
                         <div class="input-group-append">

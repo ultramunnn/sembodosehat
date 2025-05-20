@@ -15,10 +15,10 @@
 
     <!-- Tombol Login kanan -->
     <div class="ml-auto">
-        <button
-            class="bg-green-300 rounded-[10px] w-32 h-12 px-4 py-2 text-white text-2xl font-medium leading-tight font-poppins cursor-pointer hover:bg-green-400 transition">
+        <a href="../login.php"
+            class="bg-green-300 rounded-[10px] w-42 h-12 px-4 py-2 text-white text-2xl font-medium leading-tight font-poppins cursor-pointer hover:bg-green-400 transition">
             Login
-        </button>
+        </a>
 
     </div>
 </div>

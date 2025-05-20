@@ -1,0 +1,8 @@
+# Aktifkan RewriteEngine
+RewriteEngine On
+
+# Set file index default ke user/home.php
+DirectoryIndex user/home.php
+
+# (Opsional) Kalau mau redirect langsung ke user/home.php, pakai ini:
+# RewriteRule ^$ /user/home.php [L]

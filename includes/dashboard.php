@@ -1,6 +1,3 @@
-<?php 
-include __DIR__ . '/app_admin.php';
-?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">

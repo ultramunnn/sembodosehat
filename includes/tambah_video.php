@@ -1,5 +1,3 @@
-<?php include __DIR__ . '/app_admin.php'; ?>
-
 
 <div class="content-wrapper">
     <div class="card card-primary m-5">
