@@ -4,39 +4,13 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 
-require __DIR__ . '/../config/functions.php';
+require __DIR__ . '/../config/functions_tambahpenyakit.php';
 require __DIR__ . '/../config/koneksi.php';
 
-$errors = [];
-$success = '';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nama = $_POST['nama'] ?? '';
-
-    // Validasi input
-    validate_required($nama, 'nama', $errors);
-
-    // Cek duplikasi
-    if (empty($errors) && cek_duplikasi_penyakit($conn, $nama)) {
-        $errors['duplikasi'] = 'Penyakit sudah ada';
-    }
-    //input data
-    if (empty($errors)) {
-        if (tambah_penyakit($conn, $nama)) {
-            header('Location: ../admin/index.php?page=tambah_penyakit&success=1');
-            exit();
-        }
-        var_dump($nama);
-        var_dump($errors);
-        exit;
-
-    }
-} else if (isset($_GET['success'])) {
-    $success = 'Penyakit berhasil ditambahkan';
-}
-
+$result = proses_tambah_penyakit($conn);
+$errors = $result['errors'];
+$success = $result['success'];
 ?>
-
 
 <div class="content-wrapper">
 
@@ -78,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="form-group">
                     <label for="penyakit">Nama Penyakit</label>
                     <input type="text" name="nama" class="form-control" id="penyakit" placeholder="Enter penyakit"
-                        value="<?= htmlspecialchars($_POST['nama'] ?? '') ?>">
+                        value="<?= $_POST['nama'] ?? '' ?>">
                 </div>
 
             </div>
