@@ -2,7 +2,7 @@
 // koneksi.php
 $host = 'localhost';
 $user = 'root';        // sesuaikan username DB kamu
-$password = 'root0506';        // sesuaikan password DB kamu
+$password = '';        // sesuaikan password DB kamu
 $dbname = 'sembodo_sehat'; // nama database
 
 // Buat koneksi

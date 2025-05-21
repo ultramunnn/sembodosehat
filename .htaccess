@@ -6,3 +6,4 @@ DirectoryIndex user/home.php
 
 # (Opsional) Kalau mau redirect langsung ke user/home.php, pakai ini:
 # RewriteRule ^$ /user/home.php [L]
+    
