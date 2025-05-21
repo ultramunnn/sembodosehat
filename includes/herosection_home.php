@@ -2,7 +2,7 @@
     <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-16 h-full">
         <!-- Teks & tombol kiri -->
         <div class="md:w-1/2 text-white font-poppins text-center md:text-left flex flex-col justify-center h-full">
-            <h1 class="text-4xl md:text-6xl font-semibold mb-8 leading-snug">
+            <h1 class="text-2xl md:text-5xl font-semibold mb-8 leading-snug">
                 Sehat Itu Mudah,<br />
                 Sehat Itu SembodoSehat
             </h1>

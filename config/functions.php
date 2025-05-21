@@ -18,27 +18,29 @@ function validate_required($value, $name, array &$error)
 
 }
 
-//fungsi cek duplikasi nama penyakit
+// Fungsi cek duplikasi nama penyakit 
 function cek_duplikasi_penyakit($conn, $nama)
 {
-    $stmt = $conn->prepare("SELECT * FROM riwayat_penyakit WHERE nama= ?");
-    $stmt->bind_param("s", $nama);
-    $stmt->execute();
-    $stmt->store_result();
-    $found = $stmt->num_rows > 0;
-    $stmt->close();
+    $nama = $_POST['nama'];
+    $sql = "SELECT * FROM riwayat_penyakit WHERE nama = '$nama'";
+    $result = mysqli_query($conn, $sql);
 
-    return $found;
+    if (!$result) {
+       
+        return false;
+    }
+
+    return mysqli_num_rows($result) > 0;
 }
 
-//fungsi menambahkan penyakit baru
+// Fungsi menambahkan penyakit baru 
 function tambah_penyakit($conn, $nama)
 {
-    $stmt = $conn->prepare("INSERT INTO riwayat_penyakit (nama) VALUES (?)");
-    $stmt->bind_param("s", $nama);
-    $success = $stmt->execute();
-    $stmt->close();
-    return $success;
+    $nama = $_POST['nama'];
+    $sql = "INSERT INTO riwayat_penyakit (nama) VALUES ('$nama')";
+    $result = mysqli_query($conn, $sql);
+
+    return $result; // true jika sukses, false jika gagal
 }
 
 

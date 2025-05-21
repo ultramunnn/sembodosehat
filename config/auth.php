@@ -3,22 +3,18 @@ session_start();
 include_once __DIR__ . '/koneksi.php';
 
 
-function login($email, $password_plain)
+function login($email, $password)
 {
     global $conn;
 
-    // Cek dulu di tabel admins
-    $stmt = $conn->prepare("SELECT id, nama, email, password FROM admins WHERE email = ? LIMIT 1");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
 
-    if ($result && $result->num_rows === 1) {
-        $admin = $result->fetch_assoc();
+    // Cek di tabel admins
+    $sql = "SELECT id, nama, email, password FROM admins WHERE email = '$email' LIMIT 1";
+    $result = mysqli_query($conn, $sql);
 
-
-        // Verifikasi password hash
-        if (password_verify($password_plain, $admin['password'])) {
+    if ($result && mysqli_num_rows($result) === 1) {
+        $admin = mysqli_fetch_assoc($result);
+        if (password_verify($password, $admin['password'])) {
             $_SESSION['user_id'] = $admin['id'];
             $_SESSION['user_name'] = $admin['nama'];
             $_SESSION['user_role'] = 'admin';
@@ -26,16 +22,13 @@ function login($email, $password_plain)
         }
     }
 
-    // Jika tidak ditemukan di admins, cek di tabel users
-    $stmt = $conn->prepare("SELECT id, nama, email, password FROM users WHERE email = ? LIMIT 1");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    // Cek di tabel users
+    $sql = "SELECT id, nama, email, password FROM users WHERE email = '$email' LIMIT 1";
+    $result = mysqli_query($conn, $sql);
 
-    if ($result && $result->num_rows === 1) {
-        $user = $result->fetch_assoc();
-
-        if (password_verify($password_plain, $user['password'])) {
+    if ($result && mysqli_num_rows($result) === 1) {
+        $user = mysqli_fetch_assoc($result);
+        if (password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_name'] = $user['nama'];
             $_SESSION['user_role'] = 'user';
@@ -43,64 +36,60 @@ function login($email, $password_plain)
         }
     }
 
-    // Jika email tidak ditemukan atau password salah
     return false;
 }
 
 
-function signupAdmin($nama, $email, $password_plain)
+function signupAdmin($nama, $email, $password)
 {
     global $conn;
 
-    // Cek email sudah dipakai admin atau belum
-    $stmt = $conn->prepare("SELECT id FROM admins WHERE email = ? LIMIT 1");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $stmt->store_result();
+    $nama = $_POST['nama'];
+    $email = $_POST['email'];
 
-    if ($stmt->num_rows > 0) {
+    // Cek email sudah dipakai admin atau belum
+    $sql = "SELECT id FROM admins WHERE email = '$email' LIMIT 1";
+    $result = mysqli_query($conn, $sql);
+    if ($result && mysqli_num_rows($result) > 0) {
         return "Email admin sudah terdaftar";
     }
 
-    // Hash password dengan bcrypt
-    $password_hash = password_hash($password_plain, PASSWORD_DEFAULT);
+    $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-    // Insert data admin baru
-    $stmt = $conn->prepare("INSERT INTO admins (nama, email, password) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $nama, $email, $password_hash);
+    // Escape password hash (meskipun biasanya aman)
+    $password_esc = mysqli_real_escape_string($conn, $password_hash);
 
-    if ($stmt->execute()) {
+    $sql = "INSERT INTO admins (nama, email, password) VALUES ('$nama', '$email', '$password_esc')";
+    if (mysqli_query($conn, $sql)) {
         return true;
     } else {
-        return "Gagal mendaftar admin: " . $conn->error;
+        return "Gagal mendaftar admin: " . mysqli_error($conn);
     }
 }
 
-function signupUser($nama, $email, $password_plain)
+
+function signupUser($nama, $email, $password)
 {
     global $conn;
 
-    // Cek email sudah dipakai user atau belum
-    $stmt = $conn->prepare("SELECT id FROM users WHERE email = ? LIMIT 1");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $stmt->store_result();
+    $nama = $_POST['nama'];
+    $email = $_POST['email'];
 
-    if ($stmt->num_rows > 0) {
+    // Cek email sudah dipakai user atau belum
+    $sql = "SELECT id FROM users WHERE email = '$email' LIMIT 1";
+    $result = mysqli_query($conn, $sql);
+    if ($result && mysqli_num_rows($result) > 0) {
         return "Email user sudah terdaftar";
     }
 
-    // Hash password dengan bcrypt
-    $password_hash = password_hash($password_plain, PASSWORD_DEFAULT);
+    $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-    // Insert data user baru
-    $stmt = $conn->prepare("INSERT INTO users (nama, email, password) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $nama, $email, $password_hash);
 
-    if ($stmt->execute()) {
+    $sql = "INSERT INTO users (nama, email, password) VALUES ('$nama', '$email', '$password_hash')";
+    if (mysqli_query($conn, $sql)) {
         return true;
     } else {
-        return "Gagal mendaftar user: " . $conn->error;
+        return "Gagal mendaftar user: " . mysqli_error($conn);
     }
 }
 
@@ -139,5 +128,5 @@ function logout()
 }
 
 
-// Kalau sampai sini, artinya ada error karena exit() sudah memaksa keluar.
+
 
