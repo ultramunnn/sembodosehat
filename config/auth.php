@@ -40,40 +40,14 @@ function login($email, $password)
 }
 
 
-function signupAdmin($nama, $email, $password)
-{
-    global $conn;
-
-    $nama = $_POST['nama'];
-    $email = $_POST['email'];
-
-    // Cek email sudah dipakai admin atau belum
-    $sql = "SELECT id FROM admins WHERE email = '$email' LIMIT 1";
-    $result = mysqli_query($conn, $sql);
-    if ($result && mysqli_num_rows($result) > 0) {
-        return "Email admin sudah terdaftar";
-    }
-
-    $password_hash = password_hash($password, PASSWORD_DEFAULT);
-
-    // Escape password hash (meskipun biasanya aman)
-    $password_esc = mysqli_real_escape_string($conn, $password_hash);
-
-    $sql = "INSERT INTO admins (nama, email, password) VALUES ('$nama', '$email', '$password_esc')";
-    if (mysqli_query($conn, $sql)) {
-        return true;
-    } else {
-        return "Gagal mendaftar admin: " . mysqli_error($conn);
-    }
-}
 
 
 function signupUser($nama, $email, $password)
 {
     global $conn;
 
-    $nama = $_POST['nama'];
-    $email = $_POST['email'];
+    $nama = $_POST['signupNama'];
+    $email = $_POST['signupEmail'];
 
     // Cek email sudah dipakai user atau belum
     $sql = "SELECT id FROM users WHERE email = '$email' LIMIT 1";

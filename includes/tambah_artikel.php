@@ -1,7 +1,12 @@
 <?php
 session_start();
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 include __DIR__ . '/../config/koneksi.php';
-include __DIR__ . '/../config/functions.php';
+include __DIR__ . '/../config/functions_tambahpenyakit.php';
 include __DIR__ . '/../config/functions_tambahartikel.php';
 
 $result = proses_tambah_artikel($conn);
@@ -27,7 +32,7 @@ $success = $result['success'];
         <?php endif; ?>
 
         <?php if ($success): ?>
-            <div class="alert alert-success mt-2"><?= $sucess?></div>
+            <div class="alert alert-success mt-2"><?= $success ?></div>
         <?php endif; ?>
 
         <form method="POST" enctype="multipart/form-data" action="">
@@ -36,7 +41,7 @@ $success = $result['success'];
                 <div class="form-group">
                     <label for="judul">Judul</label>
                     <input type="text" class="form-control" id="judul" name="judul" placeholder="Enter judul"
-                        value="<?= $_POST['judul']?? '' ?>">
+                        value="<?= $_POST['judul'] ?? '' ?>">
                 </div>
 
                 <div class="form-group">
@@ -60,22 +65,19 @@ $success = $result['success'];
                     <textarea class="form-control" id="isi_artikel" name="isi_artikel" placeholder="Enter isi artikel"
                         rows="6"><?= $_POST['isi_artikel'] ?? '' ?></textarea>
                 </div>
-
                 <div class="form-group">
-                    <label for="penyakit">Penyakit</label>
-                    <select class="form-control " id="penyakit" name="penyakit" style="width: 100%;">
+                    <label>Penyakit Terkait</label>
+                    <select name="penyakit" class="form-control">
                         <option value="">-- Pilih Penyakit --</option>
                         <?php
                         // Ambil data penyakit dari DB
                         $result = mysqli_query($conn, "SELECT id, nama FROM riwayat_penyakit ORDER BY nama");
                         while ($row = mysqli_fetch_assoc($result)) {
-                            echo '<option value="' . $row['id'] ?? '' . '">' . $row['nama'] ?? '' . '</option>';
+                            echo '<option value="' . $row['id'] . '">' . $row['nama'] . '</option>';
                         }
                         ?>
-                        </option>
-
-
                     </select>
+
                 </div>
 
             </div>

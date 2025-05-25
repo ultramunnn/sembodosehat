@@ -28,6 +28,12 @@ if (!isset($showFooter))
     <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+
+    <!-- icon -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+
+
 </head>
 
 <body class="p-0 m-0">
@@ -37,16 +43,17 @@ if (!isset($showFooter))
     <?php endif; ?>
 
     <main class="<?= $showNavbar ?>">
-        <?= $content ?>
+        <div class="min-h-screen"><?= $content ?></div>
     </main>
 
     <?php if ($showFooter): ?>
-        <footer class="bg-green-500 w-full py-6 px-32 flex flex-wrap items-center justify-between gap-4">
+        <footer class="bg-green-950/95 w-full py-6 px-32 flex flex-wrap items-center justify-between gap-4">
             <!-- Kiri: Logo -->
-            <div>
-                <img class="w-20 h-20" src="../assets/img/logo.png" alt="Logo" />
+            <div class="flex justify-center items-center">
+                <div class="w-15 h-15 bg-white rounded-full flex justify-center items-center">
+                    <img class="w-15 h-15" src="../assets/img/logo.png" />
+                </div>
             </div>
-
             <!-- Tengah: Copyright -->
             <div class="flex flex-col md:flex-row gap-4 md:gap-12 text-white font-poppins text-lg font-medium leading-snug">
                 <div>Copyright © 2025 SembodoSehat</div>

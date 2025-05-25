@@ -1,7 +1,7 @@
-<h2 class="text-black text-4xl font-bold font-poppins mb-6 ml-6 mt-6">Tentang</h2>
+<h2 class=" p-8 text-black text-4xl font-bold font-poppins mb-2 ml-6 mt-6"id="tentang">Tentang</h2>
 <section class="max-w-full mx-auto px-6 py-8 grid grid-cols-1 md:grid-cols-2 gap-8 min-h-[600px]">
     <!-- Kiri: Konten teks dengan background hijau -->
-    <div class="bg-green-300 p-8 flex flex-col justify-between rounded-lg shadow-md">
+    <div class="bg-green-950/95 p-8 flex flex-col justify-between rounded-lg shadow-md">
         <div>
             <h3 class="text-white text-2xl font-bold font-poppins mb-4">
                 SembodoSehat: Menjadi Lebih Sehat Setiap Hari
@@ -21,14 +21,14 @@
         </div>
 
         <button
-            class="w-full md:w-auto bg-green-500 px-6 py-3.5 text-white text-sm font-medium font-poppins hover:bg-green-600 transition rounded">
+            class="w-full md:w-auto bg-green-500/50 px-6 py-3.5 text-white text-sm font-medium font-poppins hover:bg-green-600 transition rounded-lg">
             Bergabunglah dengan SembodoSehat
         </button>
     </div>
 
     <!-- Kanan: Gambar di dalam div hijau -->
-    <div class="bg-green-300 flex items-center justify-center overflow-hidden rounded-lg shadow-md">
+    <div class="bg-green-950/95 flex items-center justify-center overflow-hidden rounded-lg shadow-md ">
         <img src="../assets/img/about.png" alt="Tentang SembodoSehat"
-            class="w-full h-auto max-h-[500px] object-contain rounded-[20px]" />
+            class="w-full h-auto max-h-[500px] object-contain rounded-[20px] translate-y-20" />
     </div>
 </section>

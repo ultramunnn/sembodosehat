@@ -39,8 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
       }
     }
   } elseif ($_POST['action'] === 'signup') {
-    $signupNama = trim($_POST['signupNama'] ?? '');
-    $signupEmail = trim($_POST['signupEmail'] ?? '');
+    $signupNama = $_POST['signupNama'] ?? '';
+    $signupEmail = $_POST['signupEmail'] ?? '';
     $signupPassword = $_POST['signupPassword'] ?? '';
 
     if ($signupNama === '' || $signupEmail === '' || $signupPassword === '') {

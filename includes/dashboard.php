@@ -1,4 +1,11 @@
 <?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+
+
 include __DIR__ . '/../config/functions_tambahartikel.php';
 
 $kontens = [];
@@ -118,12 +125,11 @@ $artikels = tampilkan_artikel($conn);
                                             <!-- Tampilkan isi artikel -->
                                             <td><?= $k['tipe_konten'] ?></td>
                                             <td>
-
                                                 <a href="?page=edit_konten&id=<?= $k['id'] ?>"
                                                     class="btn btn-sm btn-warning">Edit</a>
-                                                <a href="?page=delete_konten&id=<?= $k['id'] ?>"
-                                                    class="btn btn-sm btn-danger"
+                                                <a href="delete_konten.php?id=<?= $k['id'] ?>" class="btn btn-sm btn-danger"
                                                     onclick="return confirm('Yakin ingin menghapus konten ini?');">Delete</a>
+
                                             </td>
 
                                         </tr>

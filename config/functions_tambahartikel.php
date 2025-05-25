@@ -101,10 +101,33 @@ function proses_tambah_artikel($conn)
 // Fungsi untuk menampilkan daftar artikel
 function tampilkan_artikel($conn)
 {
-    $sql = "SELECT * FROM konten WHERE tipe_konten = 'artikel' ORDER BY id ASC"; ;
+    $sql = "SELECT * FROM konten WHERE tipe_konten = 'artikel' ORDER BY id ASC";
+    ;
     $result = mysqli_query($conn, $sql);
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
+
+function hapus_artikel($conn, $id)
+{
+    $id = (int) $id;
+
+    // Hapus relasi dulu
+    $sql_rel = "DELETE FROM konten_penyakit WHERE konten_id = $id";
+    if (!mysqli_query($conn, $sql_rel)) {
+        echo "Error hapus relasi: " . mysqli_error($conn);
+        return false;
+    }
+
+    // Baru hapus konten
+    $sql = "DELETE FROM konten WHERE id = $id AND tipe_konten = 'Artikel'";
+    if (!mysqli_query($conn, $sql)) {
+        echo "Error hapus konten: " . mysqli_error($conn);
+        return false;
+    }
+
+    return true;
+}
+
 
 
 ?>
