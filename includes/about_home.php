@@ -1,12 +1,12 @@
-<h2 class=" p-8 text-black text-4xl font-bold font-poppins mb-2 ml-6 mt-6"id="tentang">Tentang</h2>
-<section class="max-w-full mx-auto px-6 py-8 grid grid-cols-1 md:grid-cols-2 gap-8 min-h-[600px]">
+<h2 class=" p-2 text-black text-2xl font-bold font-poppins mb-2 ml-6 mt-6"id="tentang">Tentang</h2>
+<section class="max-w-full mx-auto px-6 py-8 grid grid-cols-1 md:grid-cols-2 gap-8 min-h-[400px]">
     <!-- Kiri: Konten teks dengan background hijau -->
     <div class="bg-green-950/95 p-8 flex flex-col justify-between rounded-lg shadow-md">
         <div>
-            <h3 class="text-white text-2xl font-bold font-poppins mb-4">
+            <h3 class="text-white text-xl font-bold font-poppins mb-4">
                 SembodoSehat: Menjadi Lebih Sehat Setiap Hari
             </h3>
-            <p class="text-white text-2xl font-light font-poppins text-justify mb-6 leading-relaxed">
+            <p class="text-white text-l font-light font-poppins text-justify mb-2 leading-relaxed">
                 SembodoSehat adalah platform yang membantu Anda menjalani gaya hidup
                 sehat dengan cara yang mudah dan terjangkau. Kami menyediakan tips
                 kebugaran, nutrisi, dan kesehatan mental untuk mendukung kesejahteraan
@@ -29,6 +29,6 @@
     <!-- Kanan: Gambar di dalam div hijau -->
     <div class="bg-green-950/95 flex items-center justify-center overflow-hidden rounded-lg shadow-md ">
         <img src="../assets/img/about.png" alt="Tentang SembodoSehat"
-            class="w-full h-auto max-h-[500px] object-contain rounded-[20px] translate-y-20" />
+            class="w-full max-h-[400px] object-contain rounded-[20px] translate-y-20" />
     </div>
 </section>

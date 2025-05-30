@@ -1,9 +1,9 @@
-<?php 
+<?php
 $page = $_GET['page'] ?? 'dashboard';
 
 
 ob_start();
-include'../includes/cardkonten.php';
+include '../includes/page_profile.php';
 $content = ob_get_clean();
 
 // Load template utama dengan konten

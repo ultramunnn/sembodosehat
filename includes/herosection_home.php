@@ -2,7 +2,7 @@
   <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-8 relative">
     <!-- Text Content -->
     <div class="text-center md:text-left max-w-[600px] mx-auto md:mx-0 flex-shrink-0 ">
-      <h1 class="text-black text-3xl md:text-4xl lg:text-5xl font-semibold font-poppins mb-8 leading-tight ml-12">
+      <h1 class="text-black text-3xl md:text-4rzxl lg:text-5xl font-semibold font-poppins mb-8 leading-tight ml-12">
         Sehat Itu Mudah, <br /> Sehat Itu SembodoSehat</h1>
       <button
         class="w-56 h-14  ml-12 bg-green-950/95  hover:bg-green-600 rounded-[10px] text-white text-lg font-medium font-poppins transition duration-300">

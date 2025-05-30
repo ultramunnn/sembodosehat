@@ -42,7 +42,7 @@ if ($keyword !== '') {
 }
 ?>
 
-<div class="max-w-[1237px] max-h-auto mx-auto px-4 mt-8">
+<div class="max-w-[1200px] max-h-auto mx-auto px-4 mt-8">
 
     <!-- Search form -->
     <form action="" method="GET" class="mb-8">
@@ -65,7 +65,7 @@ if ($keyword !== '') {
         <?php else: ?>
             <?php foreach ($artikels as $artikel): ?>
                 <article
-                    class=" max-w-[500px] h-full md:w-[30%] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl mb-6 transition-shadow duration-300">
+                    class=" max-w-[350px] h-full md:w-[30%] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl mb-6 transition-shadow duration-300">
                     <img src="<?= $artikel['gambar'] ? '../assets/img/artikel/' . $artikel['gambar'] : 'default.jpg' ?>"
                         alt="<?= $artikel['judul'] ?? '' ?>" class="w-full h-[250px] rounded-t-lg object-cover" />
                     <div class="bg-green-950/95 rounded-b-lg p-4">

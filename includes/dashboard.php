@@ -125,7 +125,7 @@ $artikels = tampilkan_artikel($conn);
                                             <!-- Tampilkan isi artikel -->
                                             <td><?= $k['tipe_konten'] ?></td>
                                             <td>
-                                                <a href="?page=edit_konten&id=<?= $k['id'] ?>"
+                                                <a href="index.php?page=edit_konten&id=<?= $k['id'] ?>"
                                                     class="btn btn-sm btn-warning">Edit</a>
                                                 <a href="delete_konten.php?id=<?= $k['id'] ?>" class="btn btn-sm btn-danger"
                                                     onclick="return confirm('Yakin ingin menghapus konten ini?');">Delete</a>

@@ -26,11 +26,20 @@ switch ($page) {
         $content = ob_get_clean();
         break;
 
+    case 'edit_konten':
+        $pageTitle = 'Edit Konten';
+        ob_start();
+        include __DIR__ . '/../includes/edit_konten.php';
+        $content = ob_get_clean();
+        break;
+
     case 'logout':
         session_start();
         session_destroy();
         header('Location: ../login.php');
         exit; // berhenti eksekusi
+
+
 
     default:
         $pageTitle = 'Dashboard';

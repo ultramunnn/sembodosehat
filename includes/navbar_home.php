@@ -9,8 +9,9 @@
     <nav class="flex flex-1 justify-center">
         <ul class="flex items-center space-x-12 text-white font-poppins text-2xl font-light">
             <li class="cursor-pointer"><a href="../user/home.php">Home</a></li>
-            <li class="cursor-pointer">Profile</li>
+            <li class="cursor-pointer"><a href="../user/profile.php">Profile</a></li>
             <li class="cursor-pointer"><a href="../user/konten.php">Konten</a></li>
+            <li class="cursor-pointer"><a href="../user/konten.php">Rekomendasi</a></li>
             <li class="cursor-pointer"><a href="#tentang">Tentang</a></li>
         </ul>
     </nav>
