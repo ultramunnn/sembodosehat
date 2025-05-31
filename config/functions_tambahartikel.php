@@ -41,9 +41,10 @@ function tambah_artikel($conn)
     $penyakit_id = intval($_POST['penyakit']);
 
     // Upload gambar
-    $gambar = $_FILES['gambar']['name'];
+    $file_ext= $_FILES['gambar']['name'];
+    $gambar = time() . '.' . $file_ext;
     $target_dir = "../assets/img/artikel/";
-    $target_file = $target_dir . basename($gambar);
+    $target_file = $target_dir . $gambar;
     if (!move_uploaded_file($_FILES['gambar']['tmp_name'], $target_file)) {
         return false;
     }

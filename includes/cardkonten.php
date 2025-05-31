@@ -126,7 +126,7 @@ if ($keyword !== '') {
         <h2 class="text-black text-3xl font-semibold font-poppins">Video</h2>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 justify-center">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
         <?php if (empty($videos)): ?>
             <p class="text-gray-500 ml-6 col-span-3">Tidak ada video untuk ditampilkan.</p>
         <?php else: ?>
@@ -136,7 +136,7 @@ if ($keyword !== '') {
                     <?php if ($video_id): ?>
                         <div class="relative">
                             <img src="https://img.youtube.com/vi/<?= $video_id ?>/hqdefault.jpg" alt="<?= $video['judul'] ?? '' ?>"
-                                class="w-full h-[400px] rounded-t-lg object-cover" />
+                                class="w-full h-[200px] md:h-[250px] lg:h-[300px] rounded-t-lg object-cover" />
                             <div class="absolute inset-0 flex items-center justify-center">
                                 <span
                                     class="material-symbols-outlined text-white text-6xl bg-black bg-opacity-50 rounded-full p-4">play_circle</span>
@@ -146,10 +146,10 @@ if ($keyword !== '') {
                         <img src="default.jpg" alt="Default Thumbnail" class="w-full h-[400px] rounded-t-lg object-cover" />
                     <?php endif; ?>
                     <div class="bg-green-950/95 rounded-b-lg p-6">
-                        <h3 class="text-white text-2xl font-semibold font-poppins mb-4">
+                        <h3 class="text-white text-xl font-semibold font-poppins mb-4">
                             <?= $video['judul'] ?? '' ?>
                         </h3>
-                        <p class="text-white text-xl font-light font-poppins mb-6 leading-relaxed">
+                        <p class="text-white text-l font-light font-poppins mb-6 leading-relaxed">
                             <?= $video['deskripsi'] ?? '' ?>
                         </p>
                         <div class="border border-white mb-4"></div>
@@ -161,7 +161,7 @@ if ($keyword !== '') {
                                 <?= $video['penyakit_nama'] ?? '' ?>
                             </span>
                             <a href="detail.php?id=<?= urlencode($video['id']) ?>"
-                                class="text-white text-xl ml-auto font-light font-poppins whitespace-nowrap">
+                                class="text-white text-l ml-auto font-light font-poppins whitespace-nowrap">
                                 Tonton Video
                             </a>
                         </div>

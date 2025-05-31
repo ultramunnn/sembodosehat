@@ -47,15 +47,16 @@ if (!isset($showFooter))
     </main>
 
     <?php if ($showFooter): ?>
-        <footer class="bg-green-950/95 w-full py-6 px-32 flex flex-wrap items-center justify-between gap-4">
+        <footer class="bg-green-950/95 w-full py-6 px-4 sm:px-32 flex flex-wrap items-center justify-between gap-4">
             <!-- Kiri: Logo -->
             <div class="flex justify-center items-center">
-                <div class="w-15 h-15 bg-white rounded-full flex justify-center items-center">
-                    <img class="w-15 h-15" src="../assets/img/logo.png" />
+                <div class="w-10 h-10 sm:w-15 sm:h-15 bg-white rounded-full flex justify-center items-center">
+                    <img class="w-10 h-10 sm:w-15 sm:h-15" src="../assets/img/logo.png" />
                 </div>
             </div>
             <!-- Tengah: Copyright -->
-            <div class="flex flex-col md:flex-row gap-4 md:gap-12 text-white font-poppins text-lg font-medium leading-snug">
+            <div
+                class="flex flex-col md:flex-row gap-4 md:gap-12 text-white font-poppins text-sm sm:text-lg font-medium leading-snug">
                 <div>Copyright © 2025 SembodoSehat</div>
                 <div>All Rights Reserved</div>
             </div>

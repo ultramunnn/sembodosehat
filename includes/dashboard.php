@@ -7,26 +7,18 @@ error_reporting(E_ALL);
 
 
 include __DIR__ . '/../config/functions_tambahartikel.php';
+include __DIR__ . '/../config/functions_paginasidashboard.php';
 
+$perPage = 2;
+$page = isset($_GET['page_num']) && is_numeric($_GET['page_num']) ? (int) $_GET['page_num'] : 1;
+$totalKonten = 0;
+$totalPages = 1;
 $kontens = [];
 if (isset($_GET['penyakit'])) {
     $penyakit_id = $_GET['penyakit'];
-    $sql = "
-    SELECT k.*
-    FROM konten k
-    JOIN konten_penyakit kp ON k.id = kp.konten_id
-    WHERE kp.penyakit_id = $penyakit_id 
-    AND k.tipe_konten IN ('artikel','video')
-    ORDER BY k.id ASC
-";
-    $result = mysqli_query($conn, $sql);
-    if ($result) {
-        $kontens = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    }
+    $kontens = getPaginatedKonten($conn, $penyakit_id, $page, $perPage, $totalPages, $totalKonten, 1);
 }
 $artikels = tampilkan_artikel($conn);
-
-
 
 ?>
 
@@ -102,9 +94,9 @@ $artikels = tampilkan_artikel($conn);
                                         <?php endif; ?>
                                     </tr>
 
-                                    <?php foreach ($kontens as $i => $k): ?>
+                                    <?php foreach ($kontens as $k): ?>
                                         <tr>
-                                            <td><?= $i + 1 ?></td>
+                                            <td><?= $k['nomor'] ?></td>
                                             <td><?= $k['judul'] ?></td>
                                             <td><?= $k['deskripsi'] ?></td>
                                             <td>
@@ -119,19 +111,13 @@ $artikels = tampilkan_artikel($conn);
                                             else:
                                                 echo $k['video_link'];
                                             endif; ?></td>
-
-
-                                            </td>
-                                            <!-- Tampilkan isi artikel -->
                                             <td><?= $k['tipe_konten'] ?></td>
                                             <td>
                                                 <a href="index.php?page=edit_konten&id=<?= $k['id'] ?>"
                                                     class="btn btn-sm btn-warning">Edit</a>
                                                 <a href="delete_konten.php?id=<?= $k['id'] ?>" class="btn btn-sm btn-danger"
                                                     onclick="return confirm('Yakin ingin menghapus konten ini?');">Delete</a>
-
                                             </td>
-
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -141,11 +127,15 @@ $artikels = tampilkan_artikel($conn);
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
                             <ul class="pagination pagination-sm m-0 float-right">
-                                <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                                <?php
+                                $queryString = $_GET;
+                                for ($p = 1; $p <= $totalPages; $p++) {
+                                    $queryString['page_num'] = $p;
+                                    $url = '?' . http_build_query($queryString);
+                                    $active = $p == $page ? 'active' : '';
+                                    echo "<li class='page-item $active'><a class='page-link' href='$url'>$p</a></li>";
+                                }
+                                ?>
                             </ul>
                         </div>
                     </div>

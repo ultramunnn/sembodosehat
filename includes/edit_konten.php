@@ -6,6 +6,20 @@ require_once __DIR__ . '/../config/functions_editkonten.php';
 // Get content data
 $content = editKonten($_GET['id']);
 
+// Handle form submission
+if (isset($_POST['update'])) {
+
+    if (updateKonten($_POST, $_FILES)) {
+        echo "<script>
+            alert('Konten berhasil diupdate!');
+            window.location.href = '?page=dashboard';
+        </script>";
+    } else {
+        echo "<script>alert('Gagal mengupdate konten!');</script>";
+    }
+}
+
+
 ?>
 
 <div class="content-wrapper">
@@ -27,7 +41,8 @@ $content = editKonten($_GET['id']);
                 </div>
                 <div class="card-body">
                     <form action="" method="POST" enctype="multipart/form-data">
-                        <input type="hidden" name="id" value="<?= htmlspecialchars($content['id']) ?>">
+                        <input type="hidden" name="id" value="<?= ($content['id']) ?>">
+                        <input type="hidden" name="tipe_konten" value="<?= $content['tipe_konten'] ?>">
 
                         <div class="form-group">
                             <label>Tipe Konten</label>
@@ -41,8 +56,8 @@ $content = editKonten($_GET['id']);
 
                         <div class="form-group">
                             <label>Judul</label>
-                            <input type="text" class="form-control" name="judul"
-                                value="<?= htmlspecialchars($content['judul']) ?>" required>
+                            <input type="text" class="form-control" name="judul" value="<?= $content['judul'] ?>"
+                                required>
                         </div>
 
                         <div id="artikelFields"
@@ -50,7 +65,7 @@ $content = editKonten($_GET['id']);
                             <div class="form-group">
                                 <label>Isi Artikel</label>
                                 <textarea class="form-control" name="isi_artikel"
-                                    rows="10"><?= htmlspecialchars($content['isi_artikel']) ?></textarea>
+                                    rows="10"><?= $content['isi_artikel'] ?></textarea>
                             </div>
                             <div class="form-group">
                                 <label>Gambar Artikel</label>
@@ -70,14 +85,14 @@ $content = editKonten($_GET['id']);
                             <div class="form-group">
                                 <label>URL Video</label>
                                 <input type="url" class="form-control" name="video_link"
-                                    value="<?= htmlspecialchars($content['video_link']) ?>">
+                                    value="<?= $content['video_link'] ?>">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label>Deskripsi</label>
                             <textarea class="form-control" name="deskripsi"
-                                rows="3"><?= htmlspecialchars($content['deskripsi']) ?></textarea>
+                                rows="3"><?= $content['deskripsi'] ?></textarea>
                         </div>
 
                         <div class="form-group">
