@@ -1,19 +1,70 @@
+<?php
+// Set session configuration 
+ini_set('session.cookie_path', '/');
+session_start();
+
+// Debug session
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Cek session dengan lebih detail
+if (!isset($_SESSION['email']) || empty($_SESSION['email'])) {
+    // Debug session
+    var_dump($_SESSION);
+    header("Location: ../login.php");
+    exit;
+}
+
+include_once __DIR__ . '/../config/functions_profil.php';
+include_once __DIR__ . '/../config/koneksi.php'; // pastikan koneksi $conn tersedia
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nama_lengkap = $_POST['namaLengkap'] ?? '';
+    $email = $_POST['email'] ?? 'user@example.com'; // tambahkan email
+    $alamat = $_POST['alamat'] ?? '';
+    $jenis_kelamin = $_POST['jenisKelamin'] ?? '';
+    $usia = $_POST['usia'] ?? '';
+    $bio = $_POST['bio'] ?? '';
+    $riwayat_penyakit = $_POST['riwayatPenyakit'] ?? '';
+    $foto_profil_path = '';
+
+    if (isset($_FILES['fotoProfil']) && $_FILES['fotoProfil']['error'] === UPLOAD_ERR_OK) {
+        $uploadDir = __DIR__ . '/../uploads/';
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
+        $fileName = uniqid() . '_' . basename($_FILES['fotoProfil']['name']);
+        $targetFile = $uploadDir . $fileName;
+        if (move_uploaded_file($_FILES['fotoProfil']['tmp_name'], $targetFile)) {
+            $foto_profil_path = 'uploads/' . $fileName;
+        }
+    }
+
+    tambahProfilUser($conn, $nama_lengkap, $alamat, $jenis_kelamin, $usia, $bio, $riwayat_penyakit, $foto_profil_path);
+    echo "<script>alert('Profil berhasil disimpan!');</script>";
+}
+
+// Ganti kode query dengan fungsi
+$riwayat_penyakit_options = getRiwayatPenyakit($conn);
+$jenis_kelamin_options = getJenisKelamin($conn);
+?>
+<!-- ...existing code... -->
 <div class="max-w-4xl mx-auto mt-14">
-    <form class="space-y-6">
+    <form class="space-y-6" method="POST" enctype="multipart/form-data">
         <!-- Row 1: Nama Lengkap and Alamat -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="space-y-2 ">
                 <label for="namaLengkap" class="block text-black text-sm font-medium">
                     Nama Lengkap
                 </label>
-                <input id="namaLengkap" type="text" placeholder="Nama Lengkap"
+                <input id="namaLengkap" name="namaLengkap" type="text" placeholder="Nama Lengkap"
                     class="w-full bg-white border-2 border-green-300 rounded-md h-12 px-3 text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-green-300" />
             </div>
             <div class="space-y-2">
                 <label for="alamat" class="block text-black text-sm font-medium">
                     Alamat
                 </label>
-                <input id="alamat" type="text" placeholder="Alamat"
+                <input id="alamat" name="alamat" type="text" placeholder="Alamat"
                     class="w-full bg-white border-2  border-green-300 rounded-md h-12 px-3 text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-green-300" />
             </div>
         </div>
@@ -24,19 +75,22 @@
                 <label for="jenisKelamin" class="block text-black text-sm font-medium">
                     Jenis Kelamin
                 </label>
-                <select id="jenisKelamin"
+                <select id="jenisKelamin" name="jenisKelamin"
                     class="w-full bg-white border-2  border-green-300 rounded-md h-12 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-300 appearance-none bg-no-repeat bg-right pr-10"
                     style="background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 4 5\'><path fill=\'%23666\' d=\'M2 0L0 2h4zm0 5L0 3h4z\'/></svg>'); background-position: right 12px center; background-size: 12px;">
                     <option value="" disabled selected>Jenis Kelamin</option>
-                    <option value="laki-laki">Laki-laki</option>
-                    <option value="perempuan">Perempuan</option>
+                    <?php foreach ($jenis_kelamin_options as $jk): ?>
+                        <option value="<?= htmlspecialchars($jk['jenis_kelamin']) ?>">
+                            <?= htmlspecialchars($jk['jenis_kelamin']) ?>
+                        </option>
+                    <?php endforeach; ?>
                 </select>
             </div>
             <div class="space-y-2">
                 <label for="usia" class="block text-black text-sm font-medium">
                     Usia
                 </label>
-                <input id="usia" type="number" placeholder="Usia"
+                <input id="usia" name="usia" type="number" placeholder="Usia"
                     class="w-full bg-white border-2  border-green-300 rounded-md h-12 px-3 text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-green-300" />
             </div>
         </div>
@@ -47,22 +101,21 @@
                 <label for="bio" class="block text-black text-sm font-medium">
                     Bio
                 </label>
-                <textarea id="bio" placeholder="Isi bio" rows="3"
+                <textarea id="bio" name="bio" placeholder="Isi bio" rows="3"
                     class="w-full bg-white border-2  border-green-300 rounded-md px-3 py-3 text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-green-300 resize-none"></textarea>
             </div>
             <div class="space-y-2">
                 <label for="riwayatPenyakit" class="block text-black text-sm font-medium">
                     Riwayat Penyakit
                 </label>
-                <select id="riwayatPenyakit"
+                <select id="riwayatPenyakit" name="riwayatPenyakit"
                     class="w-full bg-white border-2  border-green-300 rounded-md h-12 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-300 appearance-none bg-no-repeat bg-right pr-10"
                     style="background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 4 5\'><path fill=\'%23666\' d=\'M2 0L0 2h4zm0 5L0 3h4z\'/></svg>'); background-position: right 12px center; background-size: 12px;">
                     <option value="" disabled selected>Riwayat Penyakit</option>
-                    <option value="tidak-ada">Tidak Ada</option>
-                    <option value="diabetes">Diabetes</option>
-                    <option value="hipertensi">Hipertensi</option>
-                    <option value="jantung">Penyakit Jantung</option>
-                    <option value="lainnya">Lainnya</option>
+                    <option value="">-- Pilih Penyakit --</option>
+                    <?php foreach ($riwayat_penyakit_options as $rp): ?>
+                        <option value="<?= htmlspecialchars($rp['id']) ?>"><?= htmlspecialchars($rp['nama']) ?></option>
+                    <?php endforeach; ?>
                 </select>
             </div>
         </div>
@@ -74,7 +127,7 @@
                     Foto Profil
                 </label>
                 <div class="relative">
-                    <input id="fotoProfil" type="file" accept="image/*"
+                    <input id="fotoProfil" name="fotoProfil" type="file" accept="image/*"
                         class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                         onchange="updateFileName(this)" />
                     <div
@@ -113,22 +166,7 @@
         }
     }
 
-    // Form submission handler
-    document.querySelector('form').addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        // Get form data
-        const formData = new FormData(this);
-        const data = {};
-
-        // Convert FormData to object
-        for (let [key, value] of formData.entries()) {
-            data[key] = value;
-        }
-
-        console.log('Form Data:', data);
-        alert('Form berhasil dikirim! Lihat console untuk detail.');
-    });
+    // Hapus handler JS submit form, karena sudah ditangani PHP
 </script>
 </body>
 

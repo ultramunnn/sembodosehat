@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -26,6 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
       $message = '<div class="alert alert-danger">Email dan Password wajib diisi.</div>';
     } else {
       if (login($email, $password)) {
+        // Saat login berhasil
+        $_SESSION['email'] = $email; // email user yang login
+        $_SESSION['nama'] = $nama;   // nama user yang login
+
         // Redirect berdasarkan role
         if ($_SESSION['user_role'] === 'admin') {
           header("Location: $baseUrl/admin/index.php");
