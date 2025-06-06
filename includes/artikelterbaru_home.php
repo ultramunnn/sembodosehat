@@ -81,7 +81,7 @@ $kontens = tampilkanKontenTerbaru($conn, 10); // ambil 10 konten terbaru
                                 <?= $konten['penyakit_nama'] ?? '-' ?>
                             </span>
 
-                            <a href="detail.php?id=<?= $konten['id'] ?? '-' ?>"
+                            <a href="home.php?page=tampilan_artikel&id=<?= $konten['id'] ?? '' ?>"
                                 class="text-white text-sm sm:text-l ml-auto font-light font-poppins whitespace-nowrap">
                                 <?= $konten['tipe_konten'] === 'Video' ? 'Tonton Video' : 'Baca Selengkapnya' ?>
                             </a>

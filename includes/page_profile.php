@@ -1,7 +1,4 @@
 <?php
-// Set session configuration 
-ini_set('session.cookie_path', '/');
-session_start();
 
 // Debug session
 error_reporting(E_ALL);
@@ -9,45 +6,27 @@ ini_set('display_errors', 1);
 
 // Cek session dengan lebih detail
 if (!isset($_SESSION['email']) || empty($_SESSION['email'])) {
-    // Debug session
-    var_dump($_SESSION);
+
     header("Location: ../login.php");
     exit;
 }
 
 include_once __DIR__ . '/../config/functions_profil.php';
-include_once __DIR__ . '/../config/koneksi.php'; // pastikan koneksi $conn tersedia
+include_once __DIR__ . '/../config/koneksi.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nama_lengkap = $_POST['namaLengkap'] ?? '';
-    $email = $_POST['email'] ?? 'user@example.com'; // tambahkan email
-    $alamat = $_POST['alamat'] ?? '';
-    $jenis_kelamin = $_POST['jenisKelamin'] ?? '';
-    $usia = $_POST['usia'] ?? '';
-    $bio = $_POST['bio'] ?? '';
-    $riwayat_penyakit = $_POST['riwayatPenyakit'] ?? '';
-    $foto_profil_path = '';
-
-    if (isset($_FILES['fotoProfil']) && $_FILES['fotoProfil']['error'] === UPLOAD_ERR_OK) {
-        $uploadDir = __DIR__ . '/../uploads/';
-        if (!is_dir($uploadDir)) {
-            mkdir($uploadDir, 0777, true);
-        }
-        $fileName = uniqid() . '_' . basename($_FILES['fotoProfil']['name']);
-        $targetFile = $uploadDir . $fileName;
-        if (move_uploaded_file($_FILES['fotoProfil']['tmp_name'], $targetFile)) {
-            $foto_profil_path = 'uploads/' . $fileName;
-        }
+    if (prosesUpdateProfil($conn, $_POST, $_FILES)) {
+        echo "<script>alert('Profil berhasil disimpan!');</script>";
+    } else {
+        echo "<script>alert('Gagal menyimpan profil!');</script>";
     }
-
-    tambahProfilUser($conn, $nama_lengkap, $alamat, $jenis_kelamin, $usia, $bio, $riwayat_penyakit, $foto_profil_path);
-    echo "<script>alert('Profil berhasil disimpan!');</script>";
 }
 
 // Ganti kode query dengan fungsi
 $riwayat_penyakit_options = getRiwayatPenyakit($conn);
 $jenis_kelamin_options = getJenisKelamin($conn);
 ?>
+
 <!-- ...existing code... -->
 <div class="max-w-4xl mx-auto mt-14">
     <form class="space-y-6" method="POST" enctype="multipart/form-data">

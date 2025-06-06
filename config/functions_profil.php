@@ -53,5 +53,32 @@ function getJenisKelamin($conn)
     ];
 }
 
+function prosesUpdateProfil($conn, $post_data, $files)
+{
+    $nama_lengkap = $post_data['namaLengkap'] ?? '';
+    $alamat = $post_data['alamat'] ?? '';
+    $jenis_kelamin = $post_data['jenisKelamin'] ?? '';
+    $usia = $post_data['usia'] ?? '';
+    $bio = $post_data['bio'] ?? '';
+    $riwayat_penyakit = $post_data['riwayatPenyakit'] ?? '';
+    $foto_profil_path = '';
+
+    // Process photo upload if exists
+    if (isset($files['fotoProfil']) && $files['fotoProfil']['error'] === UPLOAD_ERR_OK) {
+        $uploadDir = __DIR__ . '/../uploads/';
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
+        $fileName = uniqid() . '_' . basename($files['fotoProfil']['name']);
+        $targetFile = $uploadDir . $fileName;
+        if (move_uploaded_file($files['fotoProfil']['tmp_name'], $targetFile)) {
+            $foto_profil_path = 'uploads/' . $fileName;
+        }
+    }
+
+    // Call tambahProfilUser with collected data
+    return tambahProfilUser($conn, $nama_lengkap, $alamat, $jenis_kelamin, $usia, $bio, $riwayat_penyakit, $foto_profil_path);
+}
+
 
 ?>
