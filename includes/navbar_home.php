@@ -1,3 +1,6 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) session_start();
+?>
 <div
     class="relative bg-green-950/95 w-full max-w-full h-28 sm:h-32 mx-auto flex flex-wrap items-center px-4 sm:px-8 md:px-32">
 
@@ -27,25 +30,39 @@
             <li class="cursor-pointer py-2 md:py-0"><a href="../user/home.php">Home</a></li>
             <li class="cursor-pointer py-2 md:py-0"><a href="../user/profile.php">Profile</a></li>
             <li class="cursor-pointer py-2 md:py-0"><a href="../user/konten.php">Konten</a></li>
-            <li class="cursor-pointer py-2 md:py-0"><a href="../user/konten.php">Rekomendasi</a></li>
-            <li class="cursor-pointer py-2 md:py-0"><a href="#tentang">Tentang</a></li>
+            <li class="cursor-pointer py-2 md:py-0"><a href="../user/rekomendasi.php">Rekomendasi</a></li>
+            <li class="cursor-pointer py-2 md:py-0"><a href="../user/tentang.php">Tentang</a></li>
 
-            <!-- Tombol Login mobile -->
+            <!-- Tombol Login/Logout mobile -->
             <li class="block md:hidden w-full mt-2">
-                <a href="../login.php"
-                    class="block bg-white rounded-[10px] w-full h-10 px-4 py-2 text-black text-lg font-medium leading-tight font-poppins cursor-pointer hover:bg-gray-200 transition text-center">
-                    Login
-                </a>
+                <?php if (isset($_SESSION['email']) && !empty($_SESSION['email'])): ?>
+                    <a href="../logout.php"
+                        class="block bg-white rounded-[10px] w-full h-10 px-4 py-2 text-black text-lg font-medium leading-tight font-poppins cursor-pointer hover:bg-gray-200 transition text-center">
+                        Logout
+                    </a>
+                <?php else: ?>
+                    <a href="../login.php"
+                        class="block bg-white rounded-[10px] w-full h-10 px-4 py-2 text-black text-lg font-medium leading-tight font-poppins cursor-pointer hover:bg-gray-200 transition text-center">
+                        Login
+                    </a>
+                <?php endif; ?>
             </li>
         </ul>
     </nav>
 
-    <!-- Tombol Login kanan desktop-->
+    <!-- Tombol Login/Logout kanan desktop-->
     <div class="ml-auto hidden md:block">
-        <a href="../login.php"
-            class="bg-white rounded-[10px] w-42 h-12 px-4 py-2 text-black text-2xl font-medium leading-tight font-poppins cursor-pointer hover:bg-gray-200 transition">
-            Login
-        </a>
+        <?php if (isset($_SESSION['email']) && !empty($_SESSION['email'])): ?>
+            <a href="../logout.php"
+                class="bg-white rounded-[10px] w-42 h-12 px-4 py-2 text-black text-2xl font-medium leading-tight font-poppins cursor-pointer hover:bg-gray-200 transition">
+                Logout
+            </a>
+        <?php else: ?>
+            <a href="../login.php"
+                class="bg-white rounded-[10px] w-42 h-12 px-4 py-2 text-black text-2xl font-medium leading-tight font-poppins cursor-pointer hover:bg-gray-200 transition">
+                Login
+            </a>
+        <?php endif; ?>
     </div>
 </div>
 

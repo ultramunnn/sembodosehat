@@ -7,13 +7,9 @@ include __DIR__ . '/../config/koneksi.php';
 include __DIR__ . '/../config/functions_kontenhome.php';
 include_once __DIR__ . '/../config/functions_profil.php';
 session_start();
-$user = getUserProfile($conn, $_SESSION['email']);
-$penyakit_id = $user['penyakit_id'];
-$ids = array_filter(array_map('trim', explode(',', $penyakit_id)), 'is_numeric');
 
 // Tangkap keyword pencarian jika ada
 $keyword = $_GET['keyword'] ?? '';
-
 
 // Pagination default
 $perPage = 6;
@@ -26,7 +22,7 @@ $offset = ($page - 1) * $perPage;
 $videoOffset = ($videoPage - 1) * $perPage;
 
 if ($keyword !== '') {
-    // Cari berdasarkan keyword (fungsi searching harus kamu buat)
+    // Cari berdasarkan keyword
     $searchResults = searching($conn, $keyword);
 
     // Pisah hasil search artikel dan video
@@ -35,16 +31,14 @@ if ($keyword !== '') {
 
     // Disable pagination saat search
     $totalPages = $totalVideoPages = 1;
-} else if (count($ids) > 0) {
-    $in = implode(',', $ids);
-    // Artikel
+} else {
+    // Selalu tampilkan semua konten untuk halaman konten
     $queryArtikel = "
-        SELECT k.*, rp.nama AS penyakit_nama
+        SELECT DISTINCT k.*, rp.nama AS penyakit_nama
         FROM konten k
-        JOIN konten_penyakit kp ON k.id = kp.konten_id
-        JOIN riwayat_penyakit rp ON kp.penyakit_id = rp.id
-        WHERE kp.penyakit_id IN ($in) AND k.tipe_konten = 'Artikel'
-        GROUP BY k.id
+        LEFT JOIN konten_penyakit kp ON k.id = kp.konten_id
+        LEFT JOIN riwayat_penyakit rp ON kp.penyakit_id = rp.id
+        WHERE k.tipe_konten = 'Artikel'
         LIMIT $perPage OFFSET $offset
     ";
     $resultArtikel = mysqli_query($conn, $queryArtikel);
@@ -53,14 +47,12 @@ if ($keyword !== '') {
         $artikels[] = $row;
     }
 
-    // Video
     $queryVideo = "
-        SELECT k.*, rp.nama AS penyakit_nama
+        SELECT DISTINCT k.*, rp.nama AS penyakit_nama
         FROM konten k
-        JOIN konten_penyakit kp ON k.id = kp.konten_id
-        JOIN riwayat_penyakit rp ON kp.penyakit_id = rp.id
-        WHERE kp.penyakit_id IN ($in) AND k.tipe_konten = 'Video'
-        GROUP BY k.id
+        LEFT JOIN konten_penyakit kp ON k.id = kp.konten_id
+        LEFT JOIN riwayat_penyakit rp ON kp.penyakit_id = rp.id
+        WHERE k.tipe_konten = 'Video'
         LIMIT $perPage OFFSET $videoOffset
     ";
     $resultVideo = mysqli_query($conn, $queryVideo);
@@ -74,10 +66,6 @@ if ($keyword !== '') {
     $totalPages = ceil($totalKonten / $perPage);
     $totalVideos = count($videos);
     $totalVideoPages = ceil($totalVideos / $perPage);
-} else {
-    $artikels = [];
-    $videos = [];
-    $totalPages = $totalVideoPages = 1;
 }
 ?>
 
@@ -232,3 +220,32 @@ if ($keyword !== '') {
         </nav>
     <?php endif; ?>
 </div>
+
+<?php
+include_once __DIR__ . '/../config/functions_profil.php';
+include_once __DIR__ . '/../config/koneksi.php';
+
+// Pagination
+$perPage = 6;
+$page = isset($_GET['page']) && is_numeric($_GET['page']) && $_GET['page'] > 0 ? (int) $_GET['page'] : 1;
+$offset = ($page - 1) * $perPage;
+
+// Ambil semua konten beserta nama penyakitnya
+$query = "
+    SELECT k.*, GROUP_CONCAT(rp.nama SEPARATOR ', ') AS penyakit_nama
+    FROM konten k
+    LEFT JOIN konten_penyakit kp ON k.id = kp.konten_id
+    LEFT JOIN riwayat_penyakit rp ON kp.penyakit_id = rp.id
+    GROUP BY k.id
+    LIMIT $perPage OFFSET $offset
+";
+$result = mysqli_query($conn, $query);
+
+while ($row = mysqli_fetch_assoc($result)) {
+    echo "<div class='card'>";
+    echo "<h4>{$row['judul']}</h4>";
+    echo "<div>Penyakit: {$row['penyakit_nama']}</div>";
+    // tampilkan info lain sesuai kebutuhan
+    echo "</div>";
+}
+?>
