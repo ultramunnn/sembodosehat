@@ -64,17 +64,17 @@ if (!isset($showFooter))
             <!-- Kanan: Ikon sosial media -->
             <div class="flex items-center gap-6">
                 <!-- Instagram -->
-                <a href="#" aria-label="Instagram" class="w-6 h-6">
+                <a href="https://www.instagram.com/arrpdn_/" aria-label="Instagram" class="w-6 h-6">
                     <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram"
                         class="w-full h-full object-contain" />
                 </a>
                 <!-- WhatsApp -->
-                <a href="#" aria-label="WhatsApp" class="w-6 h-6">
+                <a href="https://wa.link/4to2il" aria-label="WhatsApp" class="w-6 h-6">
                     <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"
                         class="w-full h-full object-contain" />
                 </a>
                 <!-- Facebook -->
-                <a href="#" aria-label="Facebook" class="w-6 h-6">
+                <a href="https://www.facebook.com/aji.s.nugroho.100" aria-label="Facebook" class="w-6 h-6">
                     <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"
                         class="w-full h-full object-contain" />
                 </a>
