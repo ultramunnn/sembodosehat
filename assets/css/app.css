@@ -14,6 +14,7 @@ body {
   background-color: var(--secondary); /* hijau muda */
   font-family: Arial, sans-serif;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 .btn-green {

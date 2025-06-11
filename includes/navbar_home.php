@@ -31,7 +31,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
             <li class="cursor-pointer py-2 md:py-0"><a href="../user/profile.php">Profile</a></li>
             <li class="cursor-pointer py-2 md:py-0"><a href="../user/konten.php">Konten</a></li>
             <li class="cursor-pointer py-2 md:py-0"><a href="../user/rekomendasi.php">Rekomendasi</a></li>
-            <li class="cursor-pointer py-2 md:py-0"><a href="../user/tentang.php">Tentang</a></li>
+            <li class="cursor-pointer py-2 md:py-0"><a href="../user/home.php#tentang">Tentang</a></li>
 
             <!-- Tombol Login/Logout mobile -->
             <li class="block md:hidden w-full mt-2">

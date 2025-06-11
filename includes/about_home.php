@@ -1,5 +1,5 @@
 <h2 class=" p-2 text-black text-2xl font-bold font-poppins mb-2 ml-6 mt-6" id="tentang">Tentang</h2>
-<section class="max-w-full mx-auto px-4 sm:px-6 py-8 grid grid-cols-1 md:grid-cols-2 gap-8 min-h-[400px]">
+<section id="tentang" class="max-w-full mx-auto px-4 sm:px-6 py-8 grid grid-cols-1 md:grid-cols-2 gap-8 min-h-[400px]">
     <!-- Kiri: Konten teks dengan background hijau -->
     <div class="bg-green-950/95 p-4 sm:p-8 flex flex-col justify-between rounded-lg shadow-md">
         <div>
