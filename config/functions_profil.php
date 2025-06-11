@@ -59,8 +59,8 @@ function prosesUpdateProfil($conn, $post_data, $files)
     $jenis_kelamin = $post_data['jenisKelamin'] ?? '';
     $usia = $post_data['usia'] ?? '';
     $bio = $post_data['bio'] ?? '';
-    $penyakit_id = $post_data['riwayatPenyakit'] ?? ''; // ganti variabel
-    $foto_profil_path = '';
+    $penyakit_id = $post_data['riwayatPenyakit'] ?? '';
+    $foto_profil_path = $post_data['foto_lama'] ?? ''; // Gunakan foto lama sebagai default
 
     // Process photo upload if exists
     if (isset($files['fotoProfil']) && $files['fotoProfil']['error'] === UPLOAD_ERR_OK) {

@@ -240,12 +240,4 @@ $query = "
     LIMIT $perPage OFFSET $offset
 ";
 $result = mysqli_query($conn, $query);
-
-while ($row = mysqli_fetch_assoc($result)) {
-    echo "<div class='card'>";
-    echo "<h4>{$row['judul']}</h4>";
-    echo "<div>Penyakit: {$row['penyakit_nama']}</div>";
-    // tampilkan info lain sesuai kebutuhan
-    echo "</div>";
-}
 ?>

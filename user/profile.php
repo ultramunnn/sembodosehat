@@ -20,6 +20,11 @@ if (
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Simpan foto lama ke dalam POST data jika tidak ada upload foto baru
+    if (!isset($_FILES['fotoProfil']) || $_FILES['fotoProfil']['error'] === UPLOAD_ERR_NO_FILE) {
+        $_POST['foto_lama'] = $user['foto_user']; // Simpan path foto lama
+    }
+    
     // Proses update profil
     prosesUpdateProfil($conn, $_POST, $_FILES);
     // Redirect ke tampilan profil (bukan edit)

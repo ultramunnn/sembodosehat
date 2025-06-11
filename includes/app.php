@@ -42,8 +42,8 @@ if (!isset($showFooter))
         <?php include __DIR__ . '/navbar_home.php'; ?>
     <?php endif; ?>
 
-    <main class="min-h-screen bg-gray-50 pt-8 pb-16">
-        <?= $content ?>
+    <main class="min-h-screen p-0 m-0 bg-transparent">
+            <?= $content ?>
     </main>
 
     <?php if ($showFooter): ?>
