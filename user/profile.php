@@ -1,10 +1,23 @@
 <?php
 session_start();
+
+// Check if user is logged in
+if (!isset($_SESSION['email'])) {
+    header('Location: ../login.php');
+    exit;
+}
+
 include '../config/koneksi.php';
 include '../config/functions_profil.php';
 
 $email = $_SESSION['email'];
 $user = getUserProfile($conn, $email);
+
+// Check if user profile exists
+if (!$user) {
+    header('Location: ../login.php');
+    exit;
+}
 
 // Cek jika data penting kosong DAN BUKAN di mode edit
 if (
@@ -34,7 +47,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $edit = isset($_GET['edit']) ? true : false;
 
-$penyakit = getNamaPenyakit($conn, $user['penyakit_id']);
+// Only get penyakit name if penyakit_id exists
+$penyakit = null;
+if (!empty($user['penyakit_id'])) {
+    $penyakit = getNamaPenyakit($conn, $user['penyakit_id']);
+}
 
 ob_start();
 include '../includes/page_profile.php';
