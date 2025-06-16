@@ -5,6 +5,7 @@ include 'koneksi.php';
 // Debug
 var_dump($_POST, $_FILES);
 
+// Function untuk menampilkan form edit konten
 function editKonten($id)
 {
     global $conn;
@@ -24,7 +25,7 @@ function editKonten($id)
     return $content;
 }
 
-
+//function untuk mengupdate konten
 function updateKonten($data, $files)
 {
     global $conn;

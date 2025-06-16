@@ -75,7 +75,7 @@ function prosesUpdateProfil($conn, $post_data, $files)
         }
     }
 
-    // Call tambahProfilUser with collected data
+    // validasi input
     return tambahProfilUser($conn, $nama_lengkap, $alamat, $jenis_kelamin, $usia, $bio, $penyakit_id, $foto_profil_path);
 }
 

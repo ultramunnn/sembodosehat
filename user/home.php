@@ -34,8 +34,14 @@ switch ($page) {
 
         ob_start();
         include __DIR__ . '/../includes/herosection_home.php';
-        include __DIR__ . '/../includes/artikelterbaru_home.php';
+        include __DIR__ . '/../includes/cardkontenterbaru_home.php';
         include __DIR__ . '/../includes/about_home.php';
+        $content = ob_get_clean();
+        break;
+    case 'tampilan_video':
+        $pageTitle = "Video - SembodoSehat";
+        ob_start();
+        include __DIR__ . '/../includes/tampilan_video.php';
         $content = ob_get_clean();
         break;
 }

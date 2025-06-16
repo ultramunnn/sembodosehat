@@ -13,11 +13,11 @@ $perPage = 2;
 $page = isset($_GET['page_num']) && is_numeric($_GET['page_num']) ? (int) $_GET['page_num'] : 1;
 $totalKonten = 0;
 $totalPages = 1;
-$kontens = [];
-if (isset($_GET['penyakit'])) {
-    $penyakit_id = $_GET['penyakit'];
-    $kontens = getPaginatedKonten($conn, $penyakit_id, $page, $perPage, $totalPages, $totalKonten, 1);
-}
+
+// Get penyakit_id from GET parameter, could be empty string
+$penyakit_id = isset($_GET['penyakit']) ? $_GET['penyakit'] : '';
+// Get content regardless of whether penyakit is selected
+$kontens = getPaginatedKonten($conn, $penyakit_id, $page, $perPage, $totalPages, $totalKonten, 1);
 $artikels = tampilkan_artikel($conn);
 
 ?>

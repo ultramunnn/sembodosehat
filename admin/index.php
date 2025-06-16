@@ -36,7 +36,7 @@ switch ($page) {
     case 'logout':
         session_start();
         session_destroy();
-        header('Location: ../login.php');
+        header('Location: ../user/home.php');
         exit; // berhenti eksekusi
 
 

@@ -1,6 +1,6 @@
 <?php
 session_start();
 session_destroy();
-header("Location: /sembodosehat/");
+header("Location: user/home.php");
 exit;
 ?>
