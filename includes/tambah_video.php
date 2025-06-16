@@ -47,18 +47,19 @@ $success = $result['success'];
             <div class="card-body">
                 <div class="form-group">
                     <label for="judul">Judul</label>
-                    <input type="text" name="judul" class="form-control" value="<?= $_POST['judul'] ?? '' ?>">
+                    <input type="text" name="judul" class="form-control" value="<?= $_POST['judul'] ?? '' ?>" 
+                           placeholder="Masukkan judul video" required>
                 </div>
 
                 <div class="form-group">
                     <label>Deskripsi</label>
-                    <textarea name="deskripsi" class="form-control" rows="3"><?=
+                    <textarea name="deskripsi" class="form-control" rows="3" placeholder="Masukkan deskripsi"><?=
                         $_POST['deskripsi'] ?? '' ?></textarea>
                 </div>
 
                 <div class="form-group">
                     <label>Link YouTube</label>
-                    <input type="text" name="link" class="form-control" value="<?= $_POST['link'] ?? '' ?>">
+                    <input type="text" name="link" placeholder="Masukkan link youtube" class="form-control" value="<?= $_POST['link'] ?? '' ?>">
                 </div>
 
                 <div class="form-group">
