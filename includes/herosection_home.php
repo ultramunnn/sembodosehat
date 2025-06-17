@@ -3,7 +3,7 @@
     <!-- Text Content -->
     <div class="text-center lg:text-left max-w-2xl mx-auto lg:mx-0 flex-shrink-0">
       <h1 class="text-black text-3xl md:text-4xl lg:text-5xl font-semibold font-poppins mb-6 leading-tight">
-        Sehat Itu Mudah, <br class="hidden lg:block" /> Sehat Itu SembodoSehat
+        <span id="typed-text"></span>
       </h1>
 
       <button
@@ -18,3 +18,21 @@
     </div>
   </div>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var typed = new Typed('#typed-text', {
+        strings: [
+            'Sehat Itu Mudah...<br>Sehat Itu SembodoSehat!'
+        ],
+        typeSpeed: 50,
+        backSpeed: 30,
+        backDelay: 1500,
+        startDelay: 500,
+        loop: true,
+        showCursor: true,
+        cursorChar: '|',
+        autoInsertCss: true
+    });
+});
+</script>

@@ -7,6 +7,30 @@
   --sidebar-hover: var(--primary-darker);
   --navbar-bg: #388e3c;
 }
+
+@keyframes typing {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-typing {
+  display: inline-block;
+  animation: typing 1s ease-out forwards;
+}
+
+.animate-typing-delay {
+  display: inline-block;
+  animation: typing 1s ease-out forwards;
+  animation-delay: 0.5s;
+  opacity: 0;
+}
+
 html,
 body {
   height: 100%;
